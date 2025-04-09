@@ -1,6 +1,7 @@
 #include "ProjectileDefault.h"
 #include "PhysicalMaterials/PhysicalMaterial.h"
 #include "Components/DecalComponent.h"
+#include "Perception/AISense_Damage.h"
 #include "Kismet/GameplayStatics.h"
 
 // Sets default values
@@ -133,8 +134,10 @@ void AProjectileDefault::BulletCollisionSphereHit(UPrimitiveComponent* HitComp, 
 		ULibTypes::AddEffectBySurfaceType(Hit.GetActor(),Hit.BoneName, ProjectileSetting.Effect, mySurfacetype, Hit.Location);
 	}
 
+	
 
 	UGameplayStatics::ApplyDamage(OtherActor, ProjectileDamage, GetInstigatorController(), this, NULL);
+	UAISense_Damage::ReportDamageEvent(GetWorld(), Hit.GetActor(), GetInstigator(), ProjectileSetting.ProjectileDamage, Hit.Location, Hit.Location );
 	ImpactProjectile();
 }
 

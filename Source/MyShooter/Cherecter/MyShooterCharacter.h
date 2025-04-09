@@ -205,6 +205,8 @@ public:
 	TArray<UMyShooter_StateEffect*> GetCurrentEffectsOnChar();
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	int32 GetCurrentWeaponIndex();
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	bool IsCharacterAlive();
 	//Func End
 
 	//Interface

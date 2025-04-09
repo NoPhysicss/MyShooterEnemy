@@ -407,6 +407,11 @@ int32 AMyShooterCharacter::GetCurrentWeaponIndex()
 	return CurrentIndexWeapon;
 }
 
+bool AMyShooterCharacter::IsCharacterAlive()
+{
+	return bIsAlive;
+}
+
 void AMyShooterCharacter::AttackCharEvent(bool bIsFiring)
 {
 	AWeaponDefault* myWeapon = nullptr;
