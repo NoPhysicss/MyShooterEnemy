@@ -41,7 +41,7 @@ struct FCharacterSpeed
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
 	float WalkSpeed = 200.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
-	float RunSpeed = 2000.0f;
+	float RunSpeed = 750.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
 	float AimWalkSpeed = 100.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
@@ -65,6 +65,8 @@ struct FProjectileInfo
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileSetting")
 	float ProjectileInitSpeed = 2000.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileSetting")
+	float ProjectileMaxSpeed = 2000.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileSetting")
 	float ProjectileMinDamage = 10.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileSetting")
 	float DamageReductionDistance = 300.0f;
@@ -87,6 +89,7 @@ struct FProjectileInfo
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileSetting")
 	TSubclassOf<UMyShooter_StateEffect> Effect = nullptr;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileSetting")
 	bool TimerToExplose = false;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileSetting")
 	float ExploseTimer = 3.0f;

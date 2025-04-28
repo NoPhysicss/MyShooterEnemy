@@ -45,6 +45,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	void DamageReductionTick(float DeltaTime);
 
+	UFUNCTION(BlueprintCallable)
 	void InitProjectile(FProjectileInfo InitParam);
 
 	UFUNCTION()

@@ -91,7 +91,7 @@ void AProjectileDefault::DamageReductionTick(float DeltaTime)
 void AProjectileDefault::InitProjectile(FProjectileInfo InitParam)
 {
 	BulletProjectileMovement->InitialSpeed = InitParam.ProjectileInitSpeed;
-	BulletProjectileMovement->MaxSpeed = InitParam.ProjectileInitSpeed;
+	BulletProjectileMovement->MaxSpeed = InitParam.ProjectileMaxSpeed;
 	this->SetLifeSpan(InitParam.ProjectileLifeTime);
 
 	ProjectileSetting = InitParam;

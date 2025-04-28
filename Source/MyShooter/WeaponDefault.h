@@ -91,7 +91,6 @@ public:
 	bool CheckWeaponCanFire();
 
 	FProjectileInfo GetProjectile();
-
 	void Fire();
 
 	void UpdateStateWeapon(EMovementState NewMovementState);
