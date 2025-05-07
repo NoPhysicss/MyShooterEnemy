@@ -124,9 +124,5 @@ void AMyShooterPlayerController::OnTouchReleased()
 	OnSetDestinationReleased();
 }
 
-void AMyShooterPlayerController::UnPossess()
-{
-	Super::UnPossess();
 
-}
 

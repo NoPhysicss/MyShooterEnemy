@@ -13,7 +13,7 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "TimerManager.h"
 #include "MyShooter/MyShooterInstance.h"
-#include "Math.h"
+#include "GameFramework/GameModeBase.h"
 #include "MyShooter/ProjectileDefault.h"
 #include "Engine/World.h"
 

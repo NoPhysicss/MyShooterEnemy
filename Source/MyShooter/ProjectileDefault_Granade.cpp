@@ -111,7 +111,7 @@ void AProjectileDefault_Granade::ShowExplosionRadius()
 	FRotator DecalRotation = FRotator(-90.f, 0.f, 0.f);
 
 
-	ExplosionMinRadiusDecal->SetWorldLocationAndRotation(DecalLocation + (1.0f, 0.0f, 0.0f), DecalRotation);
+	ExplosionMinRadiusDecal->SetWorldLocationAndRotation(DecalLocation + FVector(1.0f, 0.0f, 0.0f), DecalRotation);
 	ExplosionMinRadiusDecal->SetVisibility(true);
 	ExplosionMaxRadiusDecal->SetWorldLocationAndRotation(DecalLocation, DecalRotation);
 	ExplosionMaxRadiusDecal->SetVisibility(true);

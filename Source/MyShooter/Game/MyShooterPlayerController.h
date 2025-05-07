@@ -58,8 +58,6 @@ protected:
 	void OnTouchTriggered();
 	void OnTouchReleased();
 
-	virtual void UnPossess() override;
-
 private:
 	FVector CachedDestination;
 
