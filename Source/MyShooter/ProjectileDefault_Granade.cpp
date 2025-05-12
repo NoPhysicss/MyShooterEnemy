@@ -35,9 +35,7 @@ void AProjectileDefault_Granade::GranadeDecalTick(float DeltaTime)
 {
 	float ExpMinRadius = ProjectileSetting.ExploseMaxDamageSize;
 	float ExpMaxRadius = ProjectileSetting.ExploseMinDamageSize;
-	ExplosionMinRadiusDecal->DecalSize = FVector(ExpMinRadius, ExpMinRadius, ExpMinRadius);
-	ExplosionMaxRadiusDecal->DecalSize = FVector(ExpMaxRadius, ExpMaxRadius, ExpMaxRadius);
-}
+	}
 
 void AProjectileDefault_Granade::TimerExplose(float DeltaTime)
 {
@@ -87,10 +85,8 @@ void AProjectileDefault_Granade::Explose()
 		UGameplayStatics::SpawnSoundAtLocation(GetWorld(), ProjectileSetting.ExploseSound, GetActorLocation());
 	}
 
-	ExplosionMaxRadiusDecal->SetVisibility(false);
-	ExplosionMinRadiusDecal->SetVisibility(false);
-
-	TArray<AActor*>	IgnoreActor;
+	
+	TArray<AActor*, FDefaultAllocator>	IgnoreActor;
 	UGameplayStatics::ApplyRadialDamageWithFalloff(GetWorld(),
 		ProjectileSetting.ExploseMaxDamage,
 		ProjectileSetting.ExploseMinDamage,
@@ -100,7 +96,11 @@ void AProjectileDefault_Granade::Explose()
 		5,
 		NULL, IgnoreActor, this, nullptr);
 
-	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ProjectileSetting.ExploadedGround, FTransform(FRotator(0,0,0), this->GetActorLocation(), FVector(1.0f)));
+	if (ProjectileSetting.ExploadedGround)
+	{
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ProjectileSetting.ExploadedGround, FTransform(FRotator(0, 0, 0), this->GetActorLocation(), FVector(1.0f)));
+	}
+
 	this->Destroy();
 
 }
@@ -111,8 +111,4 @@ void AProjectileDefault_Granade::ShowExplosionRadius()
 	FRotator DecalRotation = FRotator(-90.f, 0.f, 0.f);
 
 
-	ExplosionMinRadiusDecal->SetWorldLocationAndRotation(DecalLocation + FVector(1.0f, 0.0f, 0.0f), DecalRotation);
-	ExplosionMinRadiusDecal->SetVisibility(true);
-	ExplosionMaxRadiusDecal->SetWorldLocationAndRotation(DecalLocation, DecalRotation);
-	ExplosionMaxRadiusDecal->SetVisibility(true);
-}
+	}

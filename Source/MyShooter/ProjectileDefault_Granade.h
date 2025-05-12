@@ -27,14 +27,16 @@ public:
 
 	void TimerExplose(float DeltaTime);
 
-	virtual void BulletCollisionSphereHit(class UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+	virtual void BulletCollisionSphereHit(class UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit) override;
 	
 	virtual void ImpactProjectile() override;
 
 	void Explose();
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Grenade")
 	bool TimerEnabled = false;
 	float TimerToExplose = 0.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Grenade")
 	float TimeToExplose = 5.0f;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = Components)

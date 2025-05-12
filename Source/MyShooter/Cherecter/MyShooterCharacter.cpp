@@ -658,6 +658,8 @@ void AMyShooterCharacter::CharDead()
 		GetMesh()->GetAnimInstance()->Montage_Play(DeadsAnim[rnd]);
 	}
 
+	
+
 	bIsAlive = false;
  
 	if (GetController())
@@ -667,7 +669,7 @@ void AMyShooterCharacter::CharDead()
 
 	UnPossessed();
 
-	GetWorldTimerManager().SetTimer(TimerHandle_RagDollTimer,this, &AMyShooterCharacter::EnableRagDoll, AnimTime - 0.4f, false);
+	//GetWorldTimerManager().SetTimer(TimerHandle_RagDollTimer,this, &AMyShooterCharacter::EnableRagDoll, AnimTime - 0.4f, false);
 	
 	AttackCharEvent(false);
 

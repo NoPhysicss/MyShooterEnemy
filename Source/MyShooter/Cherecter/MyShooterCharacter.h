@@ -106,6 +106,7 @@ protected:
 	UFUNCTION()
 	void CharDead();
 
+	UFUNCTION(BlueprintCallable)
 	void EnableRagDoll();
 
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
@@ -113,7 +114,7 @@ protected:
 public:
 	AMyShooterCharacter();
 
-	FTimerHandle TimerHandle_RagDollTimer;
+	 FTimerHandle TimerHandle_RagDollTimer;
 
 	// Called every frame.
 	virtual void Tick(float DeltaSeconds) override;
@@ -219,6 +220,6 @@ public:
 	UFUNCTION(BlueprintNativeEvent)
 	void CharDead_BP();
 
-
+	
 };
 

@@ -29,10 +29,6 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = Components)
 	class UParticleSystemComponent* BulletFX = nullptr;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = Components)
-	class UDecalComponent* ExplosionMinRadiusDecal = nullptr;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = Components)
-	class UDecalComponent* ExplosionMaxRadiusDecal = nullptr;
 	UPROPERTY(BlueprintReadOnly)
 	FProjectileInfo ProjectileSetting;
 
@@ -60,7 +56,7 @@ public:
 
 
 	UFUNCTION(BlueprintCallable)
-	void BulletCollisionSphereHit(class UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+	virtual void BulletCollisionSphereHit(class UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 	UFUNCTION(BlueprintCallable)
 	void BulletCollisionSphereBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 	UFUNCTION(BlueprintCallable)

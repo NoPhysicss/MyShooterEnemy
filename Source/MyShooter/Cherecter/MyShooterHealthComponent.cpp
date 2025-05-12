@@ -68,7 +68,11 @@ void UMyShooterHealthComponent::ChangeCurrentHealt(float ChangeValue)
 	OnHealthChange.Broadcast(CurrentHealth, ChangeValue);
 	if (CurrentHealth < 0.0f)
 	{
-		OnDead.Broadcast();
+		FTimerHandle Handle;
+		GetWorld()->GetTimerManager().SetTimer(Handle, [this]()
+			{
+				OnDead.Broadcast();
+			}, 0.3f, false);
 	}
 	
 }

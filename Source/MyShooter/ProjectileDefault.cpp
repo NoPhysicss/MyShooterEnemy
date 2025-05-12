@@ -40,15 +40,7 @@ AProjectileDefault::AProjectileDefault()
 	BulletProjectileMovement->bRotationFollowsVelocity = true;
 	BulletProjectileMovement->bShouldBounce = true;
 
-	ExplosionMinRadiusDecal = CreateDefaultSubobject<UDecalComponent>(TEXT("ExplosionMinRadiusDecal"));
-	ExplosionMinRadiusDecal->SetupAttachment(RootComponent);
-
-	ExplosionMinRadiusDecal->SetVisibility(false);
-
-	ExplosionMaxRadiusDecal = CreateDefaultSubobject<UDecalComponent>(TEXT("ExplosionMaxRadiusDecal"));
-	ExplosionMaxRadiusDecal->SetupAttachment(RootComponent);
-
-	ExplosionMaxRadiusDecal->SetVisibility(false);
+	
 }
 
 // Called when the game starts or when spawned
