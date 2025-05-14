@@ -19,8 +19,11 @@ void UMyShooterHealthComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
-	
+	if (bIsHaveShield)
+	{
+		GetWorld()->GetTimerManager().SetTimer(TimerHandle_CoolDownShieldTimer, this, &UMyShooterHealthComponent::CoolDownShieldEnd, CoolDownShieldRecover, false);
+	}
+
 }
 
 
@@ -42,39 +45,131 @@ float UMyShooterHealthComponent::GetMaxHealt()
 	return MaxHealth;
 }
 
+float UMyShooterHealthComponent::GetCurrentShield()
+{
+	return Shield;
+}
+
+float UMyShooterHealthComponent::GetMaxShield()
+{
+	return MaxShield;
+}
+
 void UMyShooterHealthComponent::SetCurrentHealt(float NewHealth)
 {
 	CurrentHealth = NewHealth;
 }
 
+void UMyShooterHealthComponent::SetCurrentShield(float NewShield)
+{
+	Shield = NewShield;
+}
+
 void UMyShooterHealthComponent::ChangeCurrentHealt(float ChangeValue)
 {
-	if (ChangeValue < 0.0f)
+	if (!bIsHaveShield)
 	{
-		ChangeValue *= CoefDamage;
+		if (ChangeValue < 0.0f)
+		{
+			ChangeValue *= CoefDamage;
+		}
+
+		CurrentHealth += ChangeValue;
 	}
-	
-	CurrentHealth += ChangeValue;
+	else
+	{
+		
+
+		if (Shield > 0.0f && ChangeValue < 0.0f)
+		{
+			if (Shield < (ChangeValue * -1))
+			{
+				CurrentDamage = ChangeValue;
+				CurrentDamage = ChangeValue + Shield;
+				ChangeCurrentShield(ChangeValue);
+				CurrentDamage *= CoefDamage;
+				CurrentHealth += CurrentDamage;
+			}
+			else
+			{
+				ChangeCurrentShield(ChangeValue);
+			}
+
+			if (ChangeValue > 0.0f)
+			{
+				CurrentHealth += ChangeValue;
+			}
+		}
+		else if (Shield <= 0.0f && ChangeValue < 0.0f)
+		{
+			ChangeValue *= CoefDamage;
+			CurrentHealth += ChangeValue;
+		}
+		else if (ChangeValue > 0.0f)
+		{
+			CurrentHealth += ChangeValue;
+		}
+	}
+
 
 	if (CurrentHealth > MaxHealth)
 	{
 		CurrentHealth = MaxHealth;
 	}
-	else
+
+	else if(CurrentHealth < 0.0f)
 	{
-	//	OnDead.Broadcast(); 
+		CurrentHealth = 0.0f;
+		GetOwner()->SetCanBeDamaged(false);
+		GetWorld()->GetTimerManager().ClearTimer(TimerHandle_CoolDownShieldTimer);
+		GetWorld()->GetTimerManager().ClearTimer(TimerHandle_ShieldRecoverRateTimer);
+		OnDead.Broadcast();
 	}
 
 	OnHealthChange.Broadcast(CurrentHealth, ChangeValue);
-	if (CurrentHealth < 0.0f)
-	{
-		FTimerHandle Handle;
-		GetWorld()->GetTimerManager().SetTimer(Handle, [this]()
-			{
-				OnDead.Broadcast();
-			}, 0.3f, false);
-	}
-	
 }
 
+void UMyShooterHealthComponent::ChangeCurrentShield(float ChangeValue)
+{
 
+	Shield += ChangeValue;
+	OnShieldChange.Broadcast(Shield, ChangeValue);
+	if (Shield > MaxShield)
+	{
+		Shield = MaxShield;
+	}
+	else if (Shield <= 0.0f)
+	{
+		Shield = 0.0f;
+	}
+
+	if (GetWorld() && ChangeValue < 0.0f)
+	{
+		GetWorld()->GetTimerManager().ClearTimer(TimerHandle_ShieldRecoverRateTimer);
+
+		GetWorld()->GetTimerManager().SetTimer(TimerHandle_CoolDownShieldTimer, this, &UMyShooterHealthComponent::CoolDownShieldEnd, CoolDownShieldRecover, false);
+	}
+}
+
+void UMyShooterHealthComponent::CoolDownShieldEnd()
+{
+	if (GetWorld())
+	{
+		GetWorld()->GetTimerManager().SetTimer(TimerHandle_ShieldRecoverRateTimer, this, &UMyShooterHealthComponent::RecoveryShield, ShieldRecoverRate, true);
+	}
+}
+
+void UMyShooterHealthComponent::RecoveryShield()
+{
+	Shield += ShieldRecoverValue;
+	if (Shield > MaxShield)
+	{
+		Shield = MaxShield;
+
+		if (GetWorld())
+		{
+			GetWorld()->GetTimerManager().ClearTimer(TimerHandle_ShieldRecoverRateTimer);
+		}
+	}
+	OnShieldChange.Broadcast(Shield, ShieldRecoverValue);
+}

@@ -59,7 +59,7 @@ AMyShooterCharacter::AMyShooterCharacter()
 	GetCharacterMovement()->MaxWalkSpeed = MovementInfo.NormalSpeed;
 
 	InventoryComponent = CreateDefaultSubobject<UMyInventoryComponent>(TEXT("InventoryComponent"));
-	CharHealthComponent = CreateDefaultSubobject<UMyShooterCharHealthComponent>(TEXT("HealthComponente"));
+	CharHealthComponent = CreateDefaultSubobject<UMyShooterHealthComponent>(TEXT("HealthComponente"));
 
 	if (CharHealthComponent)
 	{
@@ -638,7 +638,7 @@ float AMyShooterCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Da
 	if (DamageEvent.IsOfType(FRadialDamageEvent::ClassID))
 	{
 		AProjectileDefault* myProjectile = Cast<AProjectileDefault>(DamageCauser);
-		if (myProjectile)
+		if (myProjectile->ProjectileSetting.Effect)
 		{
 			ULibTypes::AddEffectBySurfaceType(this, NAME_None, myProjectile->ProjectileSetting.Effect, GetSurfaceType(), GetOwner()->GetActorLocation());
 			

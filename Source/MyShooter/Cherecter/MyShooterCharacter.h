@@ -9,7 +9,6 @@
 #include "MyShooter/WeaponDefault.h"
 #include "MyShooter/MyShooterInstance.h"
 #include "MyShooter/Cherecter/MyInventoryComponent.h"
-#include "MyShooter/Cherecter/MyShooterCharHealthComponent.h"
 #include "MyShooter/Cherecter/MyShooterHealthComponent.h"
 #include "MyShooter/Game/MyShooterPlayerController.h"
 #include "MyShooter/MyShooter_StateEffect.h"
@@ -130,7 +129,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UMyInventoryComponent* InventoryComponent;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	class UMyShooterCharHealthComponent* CharHealthComponent;
+	class UMyShooterHealthComponent* CharHealthComponent;
 
 	//Cursor material on decal
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cursor")

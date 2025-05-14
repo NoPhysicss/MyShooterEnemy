@@ -9,6 +9,8 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHealthChange, float, Health, float, Damage);
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnShieldChange, float, Shield, float, Damage);
+
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDead);
 
 USTRUCT()
@@ -30,19 +32,43 @@ public:
 	UPROPERTY(BlueprintAssignable, EditAnywhere, BlueprintReadWrite, Category= "Health")
 	FOnHealthChange OnHealthChange;
 	UPROPERTY(BlueprintAssignable, EditAnywhere, BlueprintReadWrite, Category = "Health")
+	FOnShieldChange OnShieldChange;
+	UPROPERTY(BlueprintAssignable, EditAnywhere, BlueprintReadWrite, Category = "Health")
 	FOnDead OnDead;
+
+
+	FTimerHandle TimerHandle_CoolDownShieldTimer;
+	FTimerHandle TimerHandle_ShieldRecoverRateTimer;
 
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 	 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category = "Health")
 	float MaxHealth = 150.0f;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category = "Health")
 	float CurrentHealth = 100.0f;
 
+	UPROPERTY(EditAnywhere, Category = "Health")
+	bool bIsHaveShield = false;
 
+	UPROPERTY(EditAnywhere, Category = "Health")
+	float MaxShield = 150.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Health")
+	float Shield = 100.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Health")
+	float CoolDownShieldRecover = 2.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Health")
+	float ShieldRecoverValue = 1.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Health")
+	float ShieldRecoverRate = 0.3f;
+
+	float CurrentDamage = 0.0f;
 
 public:	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health")
@@ -59,6 +85,16 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Health")
 	virtual void ChangeCurrentHealt(float ChangeValue);
 
+	UFUNCTION(BlueprintCallable, Category = "Health")
+	float GetCurrentShield();
+	UFUNCTION(BlueprintCallable, Category = "Health")
+	float GetMaxShield();
 
+	void RecoveryShield();
 
+	void CoolDownShieldEnd();
+
+	void ChangeCurrentShield(float ChangeValue);
+
+	void SetCurrentShield(float NewShield);
 };
